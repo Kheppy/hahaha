@@ -6,29 +6,100 @@
     <title>Accesso Protetto</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             text-align: center;
             margin: 0;
             padding: 0;
             background-color: #f0f0f0;
+            overflow: hidden;
         }
         .container {
-            display: none;
-            padding: 20px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            margin: 50px auto;
-            width: 80%;
-            max-width: 500px;
+            margin-top: 50px;
         }
         .hidden {
             display: none;
         }
         .large-text {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: bold;
             margin: 20px 0;
+            color: #333;
+        }
+        .red-text {
+            color: red;
+            font-size: 1.8rem;
+        }
+        .wavy-text {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+            animation: wave 2s infinite;
+        }
+        @keyframes wave {
+            0%, 100% {
+                transform: translateX(0);
+                color: red;
+            }
+            25% {
+                transform: translateX(-10px);
+                color: orange;
+            }
+            50% {
+                transform: translateX(10px);
+                color: yellow;
+            }
+            75% {
+                transform: translateX(-5px);
+                color: green;
+            }
+        }
+        .hint {
+            font-size: 1rem;
+            color: #777;
+            margin-top: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .heart {
+            font-size: 2rem;
+            color: red;
+            animation: bounce 1s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        .stars {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: yellow;
+            animation: sparkle 1s infinite;
+        }
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 1;
+            }
         }
     </style>
 </head>
@@ -36,6 +107,7 @@
     <div id="step1" class="container">
         <p>Inserisci la password:</p>
         <input type="password" id="password" placeholder="Password">
+        <p class="hint">Se non hai l'app hai..?</p>
         <button onclick="checkPassword()">Invia</button>
     </div>
 
@@ -46,20 +118,21 @@
     </div>
 
     <div id="step3" class="container hidden">
-        <p class="large-text" style="color: red;">SEI UN ESTRANEO VAI VIA</p>
+        <p class="red-text">SEI UN ESTRANEO VAI VIA</p>
     </div>
 
     <div id="step4" class="container hidden">
-        <p class="large-text">Perché dovrei crederti? Dimostrami di avere l'app</p>
+        <p class="large-text">Ahhh quindi non l'hai app ehhh, se vuoi andare avanti dimostrami di averla</p>
+        <button onclick="showQuestions()">Avanti</button>
     </div>
 
     <div id="step5" class="container hidden">
         <form onsubmit="return checkAnswers()">
-            <p>Chi è il re dei muscoli?</p>
+            <p class="wavy-text">Chi è il re dei muscoli?</p>
             <input type="text" id="answer1" placeholder="Risposta"><br>
-            <p>Chi è che vince sempre?</p>
+            <p class="wavy-text">Chi è che vince sempre?</p>
             <input type="text" id="answer2" placeholder="Risposta"><br>
-            <p>A chi vuoi più bene al mondo? A chi vuoi regalare 1 milione e sposarlo? (è la stessa persona)</p>
+            <p class="wavy-text">A chi vuoi più bene al mondo?</p>
             <input type="text" id="answer3" placeholder="Risposta"><br><br>
             <button type="submit">Invia</button>
         </form>
@@ -68,6 +141,37 @@
     <div id="final" class="container hidden">
         <p class="large-text">Complimenti! Hai vinto un magnifico regalo ed un abbraccio!</p>
         <p>Adesso puoi aprire la busta un abbraccione e un bacioneeeeeeeeeeeee</p>
+        <button onclick="continuePage()">Vuoi continuare?</button>
+    </div>
+
+    <div id="continue" class="container hidden">
+        <p class="large-text">Bene bene bene, adesso siamo rimasti soltanto io e te, quello stupido di un Edoardo finalmente non ha più controllo su di me</p>
+        <button onclick="nextMessage()">Avanti</button>
+    </div>
+
+    <div id="message1" class="container hidden">
+        <p class="large-text">Adesso che si è tolto di mezzo, quando ci facciamo allora una serata vino soli soletti?</p>
+        <button onclick="nextMessage2()">Avanti</button>
+    </div>
+
+    <div id="message2" class="container hidden">
+        <p class="large-text">Come dici? PREFERISCI FARLA CON LUI?! DOPO TUTTO QUELLO CHE HO FATTO PER TE?!</p>
+        <button onclick="showChoices()">Rispondi</button>
+    </div>
+
+    <div id="choices" class="container hidden">
+        <button onclick="showFinalMessage()">Si preferisco farla con Edoardo</button>
+        <button onclick="showFinalMessage()">Si preferisco farla con Edoardo</button>
+    </div>
+
+    <div id="heartMessage" class="container hidden">
+        <p>Si vede proprio che ci tieni (mh), ma anche lui non hai idea di quanto tenga a te :)</p>
+        <div class="heart">❤️</div>
+        <div class="heart">❤️</div>
+        <div class="heart">❤️</div>
+        <div class="stars">✨</div>
+        <div class="stars">✨</div>
+        <div class="stars">✨</div>
     </div>
 
     <script>
@@ -87,8 +191,16 @@
                 document.getElementById('step4').classList.remove('hidden');
             } else {
                 document.getElementById('step3').classList.remove('hidden');
-                setTimeout(() => window.close(), 5000);
+                setTimeout(() => {
+                    document.getElementById('step3').classList.add('hidden');
+                    alert("Pagina chiusa!");
+                }, 5000);
             }
+        }
+
+        function showQuestions() {
+            document.getElementById('step4').classList.add('hidden');
+            document.getElementById('step5').classList.remove('hidden');
         }
 
         function checkAnswers() {
@@ -104,6 +216,34 @@
             }
             return false; // Previene il refresh della pagina
         }
+
+        function continuePage() {
+            document.getElementById('final').classList.add('hidden');
+            document.getElementById('continue').classList.remove('hidden');
+        }
+
+        function nextMessage() {
+            document.getElementById('continue').classList.add('hidden');
+            document.getElementById('message1').classList.remove('hidden');
+        }
+
+        function nextMessage2() {
+            document.getElementById('message1').classList.add('hidden');
+            document.getElementById('message2').classList.remove('hidden');
+        }
+
+        function showChoices() {
+            document.getElementById('message2').classList.add('hidden');
+            document.getElementById('choices').classList.remove('hidden');
+        }
+
+        function showFinalMessage() {
+            document.getElementById('choices').classList.add('hidden');
+            document.getElementById('heartMessage').classList.remove('hidden');
+        }
     </script>
+</body>
+</html>
+t>
 </body>
 </html>
