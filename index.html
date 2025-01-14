@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accesso Protetto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            display: none;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin: 50px auto;
+            width: 80%;
+            max-width: 500px;
+        }
+        .hidden {
+            display: none;
+        }
+        .large-text {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="step1" class="container">
+        <p>Inserisci la password:</p>
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="checkPassword()">Invia</button>
+    </div>
+
+    <div id="step2" class="container hidden">
+        <p class="large-text">Ma ce l'hai l'app?</p>
+        <button onclick="hasApp(true)">SI</button>
+        <button onclick="hasApp(false)">NO</button>
+    </div>
+
+    <div id="step3" class="container hidden">
+        <p class="large-text" style="color: red;">SEI UN ESTRANEO VAI VIA</p>
+    </div>
+
+    <div id="step4" class="container hidden">
+        <p class="large-text">Perché dovrei crederti? Dimostrami di avere l'app</p>
+    </div>
+
+    <div id="step5" class="container hidden">
+        <form onsubmit="return checkAnswers()">
+            <p>Chi è il re dei muscoli?</p>
+            <input type="text" id="answer1" placeholder="Risposta"><br>
+            <p>Chi è che vince sempre?</p>
+            <input type="text" id="answer2" placeholder="Risposta"><br>
+            <p>A chi vuoi più bene al mondo?</p>
+            <input type="text" id="answer3" placeholder="Risposta"><br><br>
+            <button type="submit">Invia</button>
+        </form>
+    </div>
+
+    <div id="final" class="container hidden">
+        <p class="large-text">Complimenti! Hai vinto un magnifico regalo ed un abbraccio!</p>
+        <p>Adesso puoi aprire la busta un abbraccione e un bacioneeeeeeeeeeeee</p>
+    </div>
+
+    <script>
+        function checkPassword() {
+            const password = document.getElementById('password').value;
+            if (password === 'offerta') {
+                document.getElementById('step1').classList.add('hidden');
+                document.getElementById('step2').classList.remove('hidden');
+            } else {
+                alert('Password errata!');
+            }
+        }
+
+        function hasApp(hasApp) {
+            document.getElementById('step2').classList.add('hidden');
+            if (hasApp) {
+                document.getElementById('step4').classList.remove('hidden');
+            } else {
+                document.getElementById('step3').classList.remove('hidden');
+                setTimeout(() => window.close(), 5000);
+            }
+        }
+
+        function checkAnswers() {
+            const answer1 = document.getElementById('answer1').value.toLowerCase();
+            const answer2 = document.getElementById('answer2').value.toLowerCase();
+            const answer3 = document.getElementById('answer3').value.toLowerCase();
+
+            if (answer1 === 'edoardo' && answer2 === 'edoardo' && answer3 === 'edoardo') {
+                document.getElementById('step5').classList.add('hidden');
+                document.getElementById('final').classList.remove('hidden');
+            } else {
+                alert('Risposte errate! Riprova.');
+            }
+            return false; // Previene il refresh della pagina
+        }
+    </script>
+</body>
+</html>
